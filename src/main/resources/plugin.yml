@@ -1,0 +1,5 @@
+name: Go2Sleep
+version: '${project.version}'
+main: me.playajames.go2sleep.Go2Sleep
+api-version: 1.15
+authors: [ playajames ]

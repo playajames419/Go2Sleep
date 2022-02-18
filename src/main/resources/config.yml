@@ -1,0 +1,3 @@
+name: Bedtime
+treasure: true # if true the enchantment cant be obtained in an enchantment table
+cursed: false # if the enchant is cursed

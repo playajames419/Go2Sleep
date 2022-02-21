@@ -5,6 +5,9 @@ import dev.jorel.commandapi.CommandAPIConfig;
 import me.playajames.go2sleep.commands.Go2SleepCommand;
 import me.playajames.go2sleep.enchants.BedtimeEnchantment;
 import me.playajames.go2sleep.listeners.ArrowShootListener;
+import me.playajames.go2sleep.listeners.AttackNPCListener;
+import me.playajames.go2sleep.listeners.JoinQuitListener;
+import me.playajames.go2sleep.listeners.PlayerMoveListener;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
@@ -54,6 +57,9 @@ public final class Go2Sleep extends JavaPlugin {
 
     private void registerListeners() {
         Bukkit.getPluginManager().registerEvents(new ArrowShootListener(), this);
+        Bukkit.getPluginManager().registerEvents(new JoinQuitListener(), this);
+        Bukkit.getPluginManager().registerEvents(new AttackNPCListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), this);
     }
 
     private void loadCommandAPI() {

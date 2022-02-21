@@ -3,7 +3,6 @@ package me.playajames.go2sleep.listeners;
 import me.playajames.go2sleep.Go2Sleep;
 import me.playajames.go2sleep.SleepHandler;
 import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -42,9 +41,6 @@ public class ArrowShootListener implements Listener {
 
         Arrow arrow = (Arrow) event.getEntity();
         Player hitPlayer = (Player) event.getHitEntity();
-
-        if (hitPlayer.isDead())
-            return;
 
         if (arrow.getPersistentDataContainer().has(BEDTIME_KEY, PersistentDataType.BYTE))
             new SleepHandler().sleep(hitPlayer);

@@ -4,7 +4,6 @@ import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.Argument;
 import dev.jorel.commandapi.arguments.IntegerArgument;
 import dev.jorel.commandapi.arguments.PlayerArgument;
-import dev.jorel.commandapi.executors.CommandExecutor;
 import me.playajames.go2sleep.Go2Sleep;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

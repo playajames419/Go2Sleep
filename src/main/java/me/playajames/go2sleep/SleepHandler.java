@@ -1,12 +1,11 @@
 package me.playajames.go2sleep;
 
+import me.playajames.go2sleep.npc.NPC;
+import net.minecraft.server.v1_15_R1.EntityPose;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class SleepHandler {
 
@@ -18,19 +17,36 @@ public class SleepHandler {
         if (player.isDead())
             return;
 
+        NPC npc = new NPC(player.getName(), player.getLocation());
+        npc.showAll();
+        npc.setPose(EntityPose.SLEEPING);
+        npc.removeFromTabList();
+        hidePlayer(player);
+
+        //todo stop player from movement, maybe attach to invisible seat
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                wake(player, npc);
+            }
+        }.runTaskLater(Go2Sleep.getPlugin(Go2Sleep.class), 20 * Go2Sleep.getPlugin(Go2Sleep.class).getConfig().getInt("sleep-time"));
     }
 
-    public void wake(Player player) {
-
+    public void wake(Player player, NPC npc) {
+        npc.destroy();
+        showPlayer(player);
     }
 
-    private void setBed(Block start, BlockFace facing, Material material) {
-        for (Bed.Part part : Bed.Part.values()) {
-            start.setBlockData(Bukkit.createBlockData(material, (data) -> {
-                ((Bed) data).setPart(part);
-                ((Bed) data).setFacing(facing);
-            }));
-            start = start.getRelative(facing.getOppositeFace());
+    private void hidePlayer(Player player) {
+        for (Player playerI : Bukkit.getOnlinePlayers()) {
+            playerI.hidePlayer(Go2Sleep.getPlugin(Go2Sleep.class), player);
+        }
+    }
+
+    private void showPlayer(Player player) {
+        for (Player playerI : Bukkit.getOnlinePlayers()) {
+            playerI.showPlayer(Go2Sleep.getPlugin(Go2Sleep.class), player);
         }
     }
 }

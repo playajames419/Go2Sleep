@@ -1,5 +1,6 @@
 package me.playajames.go2sleep.enchants;
 
+import me.playajames.go2sleep.Go2Sleep;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -17,7 +18,7 @@ public class EnchantmentWrapper extends Enchantment {
 
 
     public EnchantmentWrapper(String key, String name, int maxLvl, int startLvl, boolean isTreasure, boolean isCursed) {
-        super(NamespacedKey.minecraft(key));
+        super(new NamespacedKey(Go2Sleep.getPlugin(Go2Sleep.class), key));
         this.name = name;
         this.maxLvl = maxLvl;
         this.startLvl = startLvl;

@@ -3,11 +3,16 @@ package me.playajames.go2sleep.enchants;
 import org.bukkit.enchantments.Enchantment;
 
 import java.lang.reflect.Field;
+import java.util.Locale;
 
 public class BedtimeEnchantment extends EnchantmentWrapper {
 
-    public BedtimeEnchantment(String key, String name, int maxLvl, int startLvl, boolean isTreasure, boolean isCursed) {
-        super(key, name, maxLvl, startLvl, isTreasure, isCursed);
+    private final int sleepTime;
+
+    public BedtimeEnchantment(String key, String name, int maxLvl, int startLvl, boolean isTreasure, boolean isCursed, int sleepTime) {
+        super(key.toLowerCase(Locale.ROOT), name, maxLvl, startLvl, isTreasure, isCursed);
+        this.sleepTime = sleepTime;
+        register();
     }
 
     public void register() {
@@ -19,6 +24,10 @@ public class BedtimeEnchantment extends EnchantmentWrapper {
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public int getSleepTime() {
+        return sleepTime;
     }
 
 }

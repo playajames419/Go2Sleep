@@ -1,0 +1,1 @@
+Find way to make player "sleep" when hit with bedtime arrow. Maybe spawn a fake player and send sleeping packets, make actual player invisible and attach them to a seat or deny movement untill effect is over.

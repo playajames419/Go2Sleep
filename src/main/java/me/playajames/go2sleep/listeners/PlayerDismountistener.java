@@ -8,7 +8,7 @@ import org.spigotmc.event.entity.EntityDismountEvent;
 
 import static me.playajames.go2sleep.SleepHandler.SLEEPING;
 
-public class PlayerMoveListener implements Listener {
+public class PlayerDismountistener implements Listener {
 
     @EventHandler
     public void onPlayerDismount(EntityDismountEvent event) {
@@ -20,7 +20,6 @@ public class PlayerMoveListener implements Listener {
 
         if (SLEEPING.containsKey(player.getUniqueId()))
             event.setCancelled(true);
-
 
     }
 

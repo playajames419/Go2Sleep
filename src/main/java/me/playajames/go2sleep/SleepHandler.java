@@ -7,7 +7,6 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,7 +21,7 @@ public class SleepHandler {
         if (player.isDead())
             return;
 
-        NPC npc = new NPC(player.getName(), player.getLocation());
+        NPC npc = new NPC(player.getName(), player.getLocation(), player);
         Set<Player> excluded = new HashSet<>();
         excluded.add(player);
         npc.showAll(excluded);
@@ -43,6 +42,7 @@ public class SleepHandler {
         data.put("armorstand", sit(player));
         data.put("task", task);
 
+        player.getBoundingBox().expand(3,3,3);
         SLEEPING.put(player.getUniqueId(), data);
     }
 
@@ -53,6 +53,13 @@ public class SleepHandler {
         unSit(player);
         SLEEPING.remove(player.getUniqueId());
         player.teleport(player.getLocation().add(0,1,0));
+    }
+
+    public void forceWake(Player player) {
+        if (SLEEPING.containsKey(player.getUniqueId())) {
+            ((BukkitTask) SLEEPING.get(player.getUniqueId()).get("task")).cancel();
+            new SleepHandler().wake(player);
+        }
     }
 
     private void hidePlayer(Player player) {
@@ -86,10 +93,4 @@ public class SleepHandler {
         armorStand.remove();
     }
 
-    public void attackPlayer() {
-        //if npc is hit
-        //transfer damage to player
-        //if player is dead return, may need to drop items?
-        //remove npc
-    }
 }

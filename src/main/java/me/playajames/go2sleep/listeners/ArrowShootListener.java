@@ -2,7 +2,6 @@ package me.playajames.go2sleep.listeners;
 
 import me.playajames.go2sleep.Go2Sleep;
 import me.playajames.go2sleep.SleepHandler;
-import me.playajames.go2sleep.npc.NPC;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -25,9 +24,8 @@ public class ArrowShootListener implements Listener {
         if (event.getBow().getEnchantments().isEmpty())
             return;
 
-        if (event.getBow().getItemMeta().hasEnchant(BEDTIME_ENCHANTMENT)) {
+        if (event.getBow().getItemMeta().hasEnchant(BEDTIME_ENCHANTMENT))
             event.getProjectile().getPersistentDataContainer().set(BEDTIME_KEY, PersistentDataType.BYTE, (byte) 1);
-        }
     }
 
     @EventHandler
@@ -42,12 +40,14 @@ public class ArrowShootListener implements Listener {
         Arrow arrow = (Arrow) event.getEntity();
         Player hitPlayer = (Player) event.getHitEntity();
 
+        if (SLEEPING.containsKey(hitPlayer.getUniqueId())) {
+            if (!Go2Sleep.getPlugin(Go2Sleep.class).getConfig().getBoolean("take-damage-by-entity-while-sleeping"))
+                arrow.remove();
+            return;
+        }
+
         if (arrow.getPersistentDataContainer().has(BEDTIME_KEY, PersistentDataType.BYTE)) {
-
-            if (SLEEPING.containsKey(hitPlayer.getUniqueId())) {
-                return;
-            }
-
+            hitPlayer.damage(arrow.getDamage(), arrow);
             new SleepHandler().sleep(hitPlayer);
         }
 

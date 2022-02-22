@@ -1,0 +1,13 @@
+# Usage: /go2sleep or /g2s give <playername> <amount>
+name: Bedtime # Custom enchantment name
+item-name: "Bedtime Bow" # Name of enchanted bow
+treasure: true # if true the enchantment cant be obtained in an enchantment table
+cursed: false # if the enchant is cursed
+sleep-time: 10 # Seconds player will sleep when hit with Bedtime enchanted item
+prefix: "[Go2Sleep] " # Prefix for in game messages
+give-message: "You have been rewarded with a Bedtime Bow." # Message when using /g2s give command
+
+#NOTE: Players are set invisible when sleeping and a npc is spawned posed as sleeping. If you allow damage
+# to the sleeping player the shooting player simply has to shoot where the invisible player is.
+# Invisible players will simply sit at the location they are shot
+take-damage-by-entity-while-sleeping: false
